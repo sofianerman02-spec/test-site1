@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Точка антистресса — магазин слаймов</title>
+<style>
+    /* ===== ПЕРЕМЕННЫЕ И БАЗОВЫЕ СТИЛИ ===== */
+    :root {
+        --green-main: #6BCB77;
+        --green-dark: #3A9D5C;
+        --blue-main: #4D96FF;
+        --blue-dark: #2B6CB0;
+        --warm-bg: #FFF8E7;
+        --warm-light: #FEF3D7;
+        --coral: #FF6B9D;
+        --text-dark: #2D3748;
+        --text-light: #4A5568;
+        --white: #FFFFFF;
+        --shadow: 0 10px 30px rgba(77, 150, 255, 0.15);
+        --shadow-hover: 0 20px 40px rgba(107, 203, 119, 0.25);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--warm-bg);
+        color: var(--text-dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* ===== НАВИГАЦИЯ ===== */
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(255, 248, 231, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .logo {
+        font-size: 1.6rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--green-main), var(--blue-main));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .logo::before {
+        content: "🫧";
+        font-size: 1.8rem;
+        -webkit-text-fill-color: initial;
+    }
+
+    .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 30px;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: var(--text-dark);
+        font-weight: 500;
+        position: relative;
+        transition: color 0.3s ease;
+    }
+
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--green-main), var(--blue-main));
+        transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+        color: var(--green-dark);
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+    }
+
+    .burger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 5px;
+    }
+
+    .burger span {
+        width: 25px;
+        height: 3px;
+        background: var(--text-dark);
+        border-radius: 3px;
+        transition: all 0.3s ease;
+    }
+
+    /* ===== HERO СЕКЦИЯ ===== */
+    .hero {
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, var(--warm-light) 0%, #E8F5E9 50%, #E3F2FD 100%);
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, var(--green-main) 0%, transparent 70%);
+        border-radius: 50%;
+        top: -100px;
+        right: -100px;
+        opacity: 0.3;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .hero::after {
+        content: '';
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, var(--blue-main) 0%, transparent 70%);
+        border-radius: 50%;
+        bottom: -50px;
+        left: -50px;
+        opacity: 0.3;
+        animation: float 8s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-30px) scale(1.1); }
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 60px 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+    }
+
+    .hero-text h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, var(--green-dark), var(--blue-dark));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: slideInLeft 1s ease;
+    }
+
+    .hero-text .slogan {
+        font-size: 1.3rem;
+        color: var(--text-light);
+        margin-bottom: 35px;
+        animation: slideInLeft 1s ease 0.2s backwards;
+    }
+
+    .cta-button {
+        display: inline-block;
+        padding: 16px 40px;
+        background: linear-gradient(135deg, var(--green-main), var(--blue-main));
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+        animation: slideInLeft 1s ease 0.4s backwards;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    .cta-button:hover::before {
+        left: 100%;
+    }
+
+    .hero-visual {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        height: 400px;
+        animation: slideInRight 1s ease;
+    }
+
+    .slime-blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(0.5px);
+        animation: blob 7s infinite;
+    }
+
+    .slime-blob:nth-child(1) {
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle at 30% 30%, #A8E6CF, var(--green-main));
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+    }
+
+    .slime-blob:nth-child(2) {
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(circle at 30% 30%, #B8D4FF, var(--blue-main));
+        top: 10%;
+        right: 15%;
+        animation-delay: 2s;
+    }
+
+    .slime-blob:nth-child(3) {
+        width: 180px;
+        height: 180px;
+        background: radial-gradient(circle at 30% 30%, #FFB8D4, var(--coral));
+        bottom: 15%;
+        left: 30%;
+        animation-delay: 4s;
+    }
+
+    @keyframes blob {
+        0%, 100% { 
+            transform: translate(0, 0) scale(1);
+            border-radius: 50%;
+        }
+        33% {
+            transform: translate(20px, -30px) scale(1.1);
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        }
+        66% {
+            transform: translate(-20px, 20px) scale(0.9);
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+    }
+
+    @keyframes slideInLeft {
+        from { opacity: 0; transform: translateX(-50px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(50px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ===== ОБЩИЕ СТИЛИ СЕКЦИЙ ===== */
+    section {
+        padding: 80px 0;
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 15px;
+        background: linear-gradient(135deg, var(--green-dark), var(--blue-dark));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .section-subtitle {
+        text-align: center;
+        color: var(--text-light);
+        font-size: 1.1rem;
+        margin-bottom: 50px;
+    }
+
+    /* ===== О КОМПАНИИ ===== */
+    .about {
+        background: var(--white);
+    }
+
+    .about-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: center;
+    }
+
+    .about-text p {
+        margin-bottom: 18px;
+        color: var(--text-light);
+        font-size: 1.05rem;
+    }
+
+    .about-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .stat-card {
+        background: linear-gradient(135deg, var(--warm-light), var(--white));
+        padding: 25px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .stat-number {
+        font-size: 2.2rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--green-main), var(--blue-main));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .stat-label {
+        color: var(--text-light);
+        font-size: 0.95rem;
+        margin-top: 5px;
+    }
+
+    .about-visual {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 400px;
+        background: linear-gradient(135deg, #E8F5E9, #E3F2FD);
+        border-radius: 30px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .about-visual::before {
+        content: "✨";
+        font-size: 8rem;
+        animation: spin 20s linear infinite;
+    }
+
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    /* ===== ТОВАРЫ ===== */
+    .products {
+        background: var(--warm-bg);
+    }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+
+    .product-card {
+        background: var(--white);
+        border-radius: 25px;
+        padding: 30px 25px;
+        text-align: center;
+        box-shadow: var(--shadow);
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .product-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, var(--green-main), var(--blue-main));
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+    }
+
+    .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    .product-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    .product-image {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        position: relative;
+        transition: transform 0.4s ease;
+    }
+
+    .product-card:hover .product-image {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    .slime-1 { background: radial-gradient(circle at 30% 30%, #A8E6CF, #4CAF50); box-shadow: inset -10px -10px 20px rgba(0,0,0,0.1), 0 10px 20px rgba(76, 175, 80, 0.3); }
+    .slime-2 { background: radial-gradient(circle at 30% 30%, #B8D4FF, #4D96FF); box-shadow: inset -10px -10px 20px rgba(0,0,0,0.1), 0 10px 20px rgba(77, 150, 255, 0.3); }
+    .slime-3 { background: radial-gradient(circle at 30% 30%, #FFD4B8, #FF9A3C); box-shadow: inset -10px -10px 20px rgba(0,0,0,0.1), 0 10px 20px rgba(255, 154, 60, 0.3); }
+    .slime-4 { background: radial-gradient(circle at 30% 30%, #FFB8D4, #FF6B9D); box-shadow: inset -10px -10px 20px rgba(0,0,0,0.1), 0 10px 20px rgba(255, 107, 157, 0.3); }
+    .slime-5 { background: radial-gradient(circle at 30% 30%, #E8D4FF, #9B59B6); box-shadow: inset -10px -10px 20px rgba(0,0,0,0.1), 0 10px 20px rgba(155, 89, 182, 0.3); }
+    .slime-6 { background: radial-gradient(circle at 30% 30%, #FFF3B8, #F4C430); box-shadow: inset -10px -10px 20px rgba(0,0,0,0.1), 0 10px 20px rgba(244, 196, 48, 0.3); }
+
+    .product-name {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--text-dark);
+    }
+
+    .product-desc {
+        color: var(--text-light);
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+    }
+
+    .product-price {
+        font-size: 1.4rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--green-dark), var(--blue-dark));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* ===== АКЦИИ ===== */
+    .promo {
+        background: linear-gradient(135deg, #E8F5E9 0%, #E3F2FD 100%);
+    }
+
+    .promo-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+
+    .promo-card {
+        background: var(--white);
+        border-radius: 25px;
+        padding: 35px 25px;
+        text-align: center;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s ease;
+    }
+
+    .promo-card:hover {
+        transform: scale(1.03);
+        box-shadow: var(--shadow-hover);
+    }
+
+    .promo-badge {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, var(--coral), #FF4081);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 700;
+    }
+
+    .promo-icon {
+        font-size: 3.5rem;
+        margin-bottom: 15px;
+    }
+
+    .promo-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--text-dark);
+    }
+
+    .promo-desc {
+        color: var(--text-light);
+        margin-bottom: 15px;
+    }
+
+    .promo-discount {
+        font-size: 2rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--coral), #FF4081);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* ===== БОНУСНАЯ ПРОГРАММА ===== */
+    .loyalty {
+        background: var(--white);
+    }
+
+    .loyalty-intro {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 50px;
+        color: var(--text-light);
+        font-size: 1.1rem;
+    }
+
+    .loyalty-levels {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+
+    .level-card {
+        background: linear-gradient(135deg, var(--warm-light), var(--white));
+        border-radius: 25px;
+        padding: 35px 25px;
+        text-align: center;
+        box-shadow: var(--shadow);
+        transition: all 0.4s ease;
+        position: relative;
+        border: 2px solid transparent;
+    }
+
+    .level-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--green-main);
+    }
+
+    .level-icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+
+    .level-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--text-dark);
+    }
+
+    .level-cashback {
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--green-main), var(--blue-main));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin: 15px 0;
+    }
+
+    .level-condition {
+        color: var(--text-light);
+        font-size: 0.95rem;
+    }
+
+    .loyalty-features {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-top: 50px;
+    }
+
+    .feature {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+    }
+
+    .feature-text {
+        color: var(--text-light);
+        font-size: 0.95rem;
+    }
+
+    /* ===== КОНТАКТЫ ===== */
+    .contacts {
+        background: linear-gradient(135deg, #2D3748, #1A202C);
+        color: var(--white);
+    }
+
+    .contacts .section-title {
+        background: linear-gradient(135deg, var(--green-main), var(--blue-main));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .contacts .section-subtitle {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .contacts-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+
+    .contact-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 25px;
+        padding: 35px 25px;
+        text-align: center;
+        backdrop-filter: blur(10px);
+        transition: all 0.4s ease;
+    }
+
+    .contact-card:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-5px);
+    }
+
+    .contact-icon {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+
+    .contact-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: var(--green-main);
+    }
+
+    .contact-info {
+        color: rgba(255, 255, 255, 0.85);
+        line-height: 1.8;
+    }
+
+    /* ===== ФУТЕР ===== */
+    footer {
+        background: #1A202C;
+        color: rgba(255, 255, 255, 0.6);
+        text-align: center;
+        padding: 25px 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* ===== АДАПТИВНОСТЬ ===== */
+    @media (max-width: 992px) {
+        .hero-content {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+        }
+
+        .hero-visual {
+            height: 300px;
+        }
+
+        .about-content {
+            grid-template-columns: 1fr;
+        }
+
+        .products-grid,
+        .promo-grid,
+        .loyalty-levels,
+        .contacts-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .loyalty-features {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .nav-links {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: var(--warm-bg);
+            flex-direction: column;
+            padding: 30px;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-150%);
+            transition: transform 0.4s ease;
+        }
+
+        .nav-links.active {
+            transform: translateY(0);
+        }
+
+        .burger {
+            display: flex;
+        }
+
+        .burger.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .burger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        .hero-text h1 {
+            font-size: 2rem;
+        }
+
+        .hero-text .slogan {
+            font-size: 1.1rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .products-grid,
+        .promo-grid,
+        .loyalty-levels,
+        .contacts-grid,
+        .loyalty-features {
+            grid-template-columns: 1fr;
+        }
+
+        section {
+            padding: 60px 0;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-text h1 {
+            font-size: 1.7rem;
+        }
+
+        .cta-button {
+            padding: 14px 30px;
+            font-size: 1rem;
+        }
+
+        .about-stats {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- ===== НАВИГАЦИЯ ===== -->
+<header>
+    <nav>
+        <div class="logo">Точка антистресса</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Главная</a></li>
+            <li><a href="#about">О нас</a></li>
+            <li><a href="#products">Товары</a></li>
+            <li><a href="#promo">Акции</a></li>
+            <li><a href="#loyalty">Бонусы</a></li>
+            <li><a href="#contacts">Контакты</a></li>
+        </ul>
+        <button class="burger" id="burger" aria-label="Меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1>Снимай стресс играючи!</h1>
+            <p class="slogan">Авторские слаймы ручной работы — твой персональный антистресс в каждой баночке. Мягкие, ароматные, уникальные.</p>
+            <a href="#products" class="cta-button">Выбрать слайм →</a>
+        </div>
+        <div class="hero-visual">
+            <div class="slime-blob"></div>
+            <div class="slime-blob"></div>
+            <div class="slime-blob"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== О КОМПАНИИ ===== -->
+<section class="about" id="about">
+    <div class="container">
+        <h2 class="section-title">О нашей компании</h2>
+        <p class="section-subtitle">История, которая началась с любви к творчеству</p>
+        <div class="about-content">
+            <div class="about-text">
+                <p>«Точка антистресса» — это уютный магазин, где каждый слайм создаётся с душой. Мы начали свой путь в 2020 году как маленькая домашняя мастерская, а сегодня стали любимым местом для тысяч поклонников антистресс-игрушек.</p>
+                <p>Наши слаймы — это не просто игрушка, это способ расслабиться, отвлечься от суеты и подарить себе минуту радости. Мы используем только безопасные, гипоаллергенные ингредиенты и создаём уникальные текстуры и ароматы.</p>
+                <p>Каждая баночка — это результат творческого поиска и любви к своему делу. Мы верим, что маленькие радости делают жизнь ярче!</p>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label">лет на рынке</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">10K+</div>
+                        <div class="stat-label">довольных клиентов</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">видов слаймов</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">ручная работа</div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-visual"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== ТОВАРЫ ===== -->
+<section class="products" id="products">
+    <div class="container">
+        <h2 class="section-title">Наши фирменные слаймы</h2>
+        <p class="section-subtitle">6 уникальных текстур для любого настроения</p>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image slime-1"></div>
+                <h3 class="product-name">Мятная свежесть</h3>
+                <p class="product-desc">Воздушный и мягкий, с ароматом мяты</p>
+                <div class="product-price">390 ₽</div>
+            </div>
+            <div class="product-card">
+                <div class="product-image slime-2"></div>
+                <h3 class="product-name">Облачный блюз</h3>
+                <p class="product-desc">Нежная текстура, как утреннее облако</p>
+                <div class="product-price">450 ₽</div>
+            </div>
+            <div class="product-card">
+                <div class="product-image slime-3"></div>
+                <h3 class="product-name">Апельсиновый закат</h3>
+                <p class="product-desc">Хрустящий и тягучий, с цитрусовым ароматом</p>
+                <div class="product-price">420 ₽</div>
+            </div>
+            <div class="product-card">
+                <div class="product-image slime-4"></div>
+                <h3 class="product-name">Розовая мечта</h3>
+                <p class="product-desc">Бархатный, с блёстками и ароматом клубники</p>
+                <div class="product-price">490 ₽</div>
+            </div>
+            <div class="product-card">
+                <div class="product-image slime-5"></div>
+                <h3 class="product-name">Лавандовый сон</h3>
+                <p class="product-desc">Расслабляющий, с ароматом лаванды</p>
+                <div class="product-price">460 ₽</div>
+            </div>
+            <div class="product-card">
+                <div class="product-image slime-6"></div>
+                <h3 class="product-name">Медовый день</h3>
+                <p class="product-desc">Тягучий, с тёплым медовым ароматом</p>
+                <div class="product-price">430 ₽</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== АКЦИИ ===== -->
+<section class="promo" id="promo">
+    <div class="container">
+        <h2 class="section-title">Специальные акции</h2>
+        <p class="section-subtitle">Успей воспользоваться выгодными предложениями</p>
+        <div class="promo-grid">
+            <div class="promo-card">
+                <div class="promo-badge">Хит</div>
+                <div class="promo-icon">🎁</div>
+                <h3 class="promo-title">2 по цене 1</h3>
+                <p class="promo-desc">При покупке двух любых слаймов третий — в подарок!</p>
+                <div class="promo-discount">-33%</div>
+            </div>
+            <div class="promo-card">
+                <div class="promo-badge">Новинка</div>
+                <div class="promo-icon">🌸</div>
+                <h3 class="promo-title">Весенний набор</h3>
+                <p class="promo-desc">Коллекция из 4 слаймов со скидкой для новых клиентов</p>
+                <div class="promo-discount">-20%</div>
+            </div>
+            <div class="promo-card">
+                <div class="promo-badge">Акция</div>
+                <div class="promo-icon">🎂</div>
+                <h3 class="promo-title">День рождения</h3>
+                <p class="promo-desc">Скидка именинникам весь месяц празднования</p>
+                <div class="promo-discount">-25%</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== БОНУСНАЯ ПРОГРАММА ===== -->
+<section class="loyalty" id="loyalty">
+    <div class="container">
+        <h2 class="section-title">Бонусная программа</h2>
+        <p class="section-subtitle">Копи баллы и получай приятные бонусы</p>
+        <p class="loyalty-intro">С каждой покупки мы начисляем вам бонусные баллы — 1 балл = 1 рубль. Чем больше покупок, тем выше ваш статус и больше привилегий!</p>
+        
+        <div class="loyalty-levels">
+            <div class="level-card">
+                <div class="level-icon">🌱</div>
+                <h3 class="level-name">Росток</h3>
+                <div class="level-cashback">5%</div>
+                <p class="level-condition">Стартовый уровень для всех новых клиентов. Начисляется с первой покупки.</p>
+            </div>
+            <div class="level-card">
+                <div class="level-icon">🌿</div>
+                <h3 class="level-name">Веточка</h3>
+                <div class="level-cashback">10%</div>
+                <p class="level-condition">При покупках от 5 000 ₽. Дополнительные подарки на день рождения.</p>
+            </div>
+            <div class="level-card">
+                <div class="level-icon">🌳</div>
+                <h3 class="level-name">Дерево</h3>
+                <div class="level-cashback">15%</div>
+                <p class="level-condition">При покупках от 15 000 ₽. Эксклюзивные новинки и приоритетная доставка.</p>
+            </div>
+        </div>
+
+        <div class="loyalty-features">
+            <div class="feature">
+                <div class="feature-icon">🎁</div>
+                <p class="feature-text">Подарок на день рождения</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🚚</div>
+                <p class="feature-text">Бесплатная доставка от 3000 ₽</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⭐</div>
+                <p class="feature-text">Ранний доступ к новинкам</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💝</div>
+                <p class="feature-text">Закрытые распродажи</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== КОНТАКТЫ ===== -->
+<section class="contacts" id="contacts">
+    <div class="container">
+        <h2 class="section-title">Наши контакты</h2>
+        <p class="section-subtitle">Приходите в гости — мы всегда рады!</p>
+        <div class="contacts-grid">
+            <div class="contact-card">
+                <div class="contact-icon">📍</div>
+                <h3 class="contact-title">Адрес</h3>
+                <p class="contact-info">
+                    г. Москва,<br>
+                    ул. Тверская, д. 15,<br>
+                    ТЦ «Центральный», 2 этаж
+                </p>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">🕐</div>
+                <h3 class="contact-title">Часы работы</h3>
+                <p class="contact-info">
+                    Пн–Пт: 10:00 – 21:00<br>
+                    Сб–Вс: 11:00 – 22:00<br>
+                    Без перерывов и выходных
+                </p>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">📞</div>
+                <h3 class="contact-title">Связаться с нами</h3>
+                <p class="contact-info">
+                    Телефон: +7 (495) 123-45-67<br>
+                    Email: hello@antistress.ru<br>
+                    Instagram: @tochka_slime
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== ФУТЕР ===== -->
+<footer>
+    <p>© 2026 «Точка антистресса» — магазин авторских слаймов. Все права защищены.</p>
+</footer>
+
+<script>
+    // Мобильное меню
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+
+    burger.addEventListener('click', () => {
+        burger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+
+    // Закрытие меню при клике на ссылку
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            burger.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+    });
+
+    // Эффект тени для шапки при прокрутке
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        if (window.scrollY > 50) {
+            header.style.boxShadow = '0 5px 30px rgba(0, 0, 0, 0.1)';
+        } else {
+            header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.05)';
+        }
+    });
+</script>
+
+</body>
+</html>

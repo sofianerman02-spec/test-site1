@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Точка антистресса — магазин слаймов</title>
+  <meta name="description" content="Магазин слаймов «Точка антистресса» — фирменные слаймы ручной работы. Сними стресс и слепи настроение!">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ===== Шапка / навигация ===== -->
+  <header class="header">
+    <div class="container header__inner">
+      <a href="#hero" class="logo">
+        <span class="logo__icon" aria-hidden="true">🧪</span>
+        <span class="logo__text">Точка <b>антистресса</b></span>
+      </a>
+
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+      <label for="nav-toggle" class="nav-burger" aria-label="Открыть меню">
+        <span></span><span></span><span></span>
+      </label>
+
+      <nav class="nav" aria-label="Основное меню">
+        <ul class="nav__list">
+          <li><a href="#hero" class="nav__link">Главная</a></li>
+          <li><a href="#about" class="nav__link">О нас</a></li>
+          <li><a href="#products" class="nav__link">Слаймы</a></li>
+          <li><a href="#promo" class="nav__link">Акции</a></li>
+          <li><a href="#bonus" class="nav__link">Бонусы</a></li>
+          <li><a href="#contacts" class="nav__link">Контакты</a></li>
+        </ul>
+        <a href="#products" class="btn btn--primary nav__cta">Купить</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== Главный раздел ===== -->
+    <section id="hero" class="hero">
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <p class="hero__badge">✨ Ручная работа · Безопасные материалы</p>
+          <h1 class="hero__title">Сними стресс —<br><span class="hero__accent">слепи настроение!</span></h1>
+          <p class="hero__subtitle">Фирменные слаймы «Точки антистресса» — это мягкость, хруст и яркие эмоции в каждой баночке. Выбирай свой формат релакса.</p>
+          <div class="hero__actions">
+            <a href="#products" class="btn btn--primary btn--lg">Выбрать слайм</a>
+            <a href="#about" class="btn btn--ghost btn--lg">Узнать больше</a>
+          </div>
+        </div>
+        <div class="hero__visual" aria-hidden="true">
+          <div class="blob blob--green"></div>
+          <div class="blob blob--blue"></div>
+          <div class="blob blob--mint"></div>
+          <div class="hero__emoji">🫧</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== О компании ===== -->
+    <section id="about" class="section about">
+      <div class="container">
+        <div class="section__head">
+          <p class="section__tag">О компании</p>
+          <h2 class="section__title">Наша история</h2>
+        </div>
+        <div class="about__grid">
+          <div class="about__text">
+            <p>«Точка антистресса» началась в 2021 году с маленькой кухни и одной баночки самодельного слайма. Мы хотели доказать, что антистресс — это не просто игрушка, а маленький ритуал заботы о себе.</p>
+            <p>Сегодня мы — команда из 12 человек, которая вручную смешивает, красит и упаковывает каждый слайм. Мы используем только безопасные материалы, проверенные гипоаллергенные клеи и натуральные красители.</p>
+            <ul class="about__facts">
+              <li><span>4 года</span> создаём слаймы</li>
+              <li><span>12 000+</span> довольных клиентов</li>
+              <li><span>100%</span> ручная работа</li>
+            </ul>
+          </div>
+          <div class="about__card">
+            <div class="about__card-emoji" aria-hidden="true">💚</div>
+            <h3>Наша миссия</h3>
+            <p>Дарить людям простой и доступный способ снимать напряжение — через цвет, текстуру и приятные тактильные ощущения.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Товары ===== -->
+    <section id="products" class="section products">
+      <div class="container">
+        <div class="section__head">
+          <p class="section__tag">Каталог</p>
+          <h2 class="section__title">Фирменные слаймы</h2>
+          <p class="section__lead">Шесть фирменных форматов — на любой вкус и настроение.</p>
+        </div>
+        <div class="products__grid">
+          <article class="card">
+            <div class="card__media card__media--cloud" aria-hidden="true">☁️</div>
+            <h3 class="card__title">«Облако»</h3>
+            <p class="card__desc">Воздушный флаффи, который тянется как настоящее облако.</p>
+            <div class="card__footer">
+              <span class="card__price">490 ₽</span>
+              <a href="#contacts" class="btn btn--small btn--primary">Заказать</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card__media card__media--butter" aria-hidden="true">🧈</div>
+            <h3 class="card__title">«Баттер»</h3>
+            <p class="card__desc">Маслянистый и нежный, тает в руках и не липнет к ладоням.</p>
+            <div class="card__footer">
+              <span class="card__price">520 ₽</span>
+              <a href="#contacts" class="btn btn--small btn--primary">Заказать</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card__media card__media--crunchy" aria-hidden="true">🥣</div>
+            <h3 class="card__title">«Кранчи»</h3>
+            <p class="card__desc">Хрустящий слайм с пенопластовыми шариками — звук, который успокаивает.</p>
+            <div class="card__footer">
+              <span class="card__price">550 ₽</span>
+              <a href="#contacts" class="btn btn--small btn--primary">Заказать</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card__media card__media--glossy" aria-hidden="true">💧</div>
+            <h3 class="card__title">«Гляссе»</h3>
+            <p class="card__desc">Глянцевый и прозрачный, с эффектом «жидкого стекла».</p>
+            <div class="card__footer">
+              <span class="card__price">470 ₽</span>
+              <a href="#contacts" class="btn btn--small btn--primary">Заказать</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card__media card__media--floam" aria-hidden="true">🧽</div>
+            <h3 class="card__title">«Флоам»</h3>
+            <p class="card__desc">Лёгкий слайм с мелкими шариками — приятный массажный эффект.</p>
+            <div class="card__footer">
+              <span class="card__price">510 ₽</span>
+              <a href="#contacts" class="btn btn--small btn--primary">Заказать</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card__media card__media--iceberg" aria-hidden="true">🧊</div>
+            <h3 class="card__title">«Айсберг»</h3>
+            <p class="card__desc">Прохладный слайм с эффектом «льда» — освежает и бодрит.</p>
+            <div class="card__footer">
+              <span class="card__price">560 ₽</span>
+              <a href="#contacts" class="btn btn--small btn--primary">Заказать</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Акции ===== -->
+    <section id="promo" class="section promo">
+      <div class="container">
+        <div class="section__head">
+          <p class="section__tag">Акции</p>
+          <h2 class="section__title">Успей воспользоваться</h2>
+        </div>
+        <div class="promo__grid">
+          <article class="promo-card promo-card--green">
+            <span class="promo-card__badge">Хит</span>
+            <h3 class="promo-card__title">2 + 1</h3>
+            <p class="promo-card__text">Купи два слайма — третий в подарок. Акция действует каждую неделю.</p>
+          </article>
+          <article class="promo-card promo-card--blue">
+            <h3 class="promo-card__title">−15% на первый заказ</h3>
+            <p class="promo-card__text">Промокод <b>START15</b> при первом заказе в нашем магазине.</p>
+          </article>
+          <article class="promo-card promo-card--mint">
+            <h3 class="promo-card__title">Счастливые пятницы</h3>
+            <p class="promo-card__text">Каждую пятницу скидка 20% на все слаймы «Облако».</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Бонусная программа ===== -->
+    <section id="bonus" class="section bonus">
+      <div class="container">
+        <div class="section__head">
+          <p class="section__tag">Бонусная программа</p>
+          <h2 class="section__title">Правила лояльности</h2>
+          <p class="section__lead">Копи баллы с каждой покупки и получай приятные подарки.</p>
+        </div>
+        <div class="bonus__grid">
+          <div class="bonus__card">
+            <span class="bonus__icon" aria-hidden="true">🪙</span>
+            <h3 class="bonus__title">1 балл за 50 ₽</h3>
+            <p class="bonus__text">Баллы начисляются за каждую покупку и действуют 12 месяцев.</p>
+          </div>
+          <div class="bonus__card">
+            <span class="bonus__icon" aria-hidden="true">🎁</span>
+            <h3 class="bonus__title">100 баллов = 100 ₽</h3>
+            <p class="bonus__text">Оплачивай баллами до 50% стоимости заказа.</p>
+          </div>
+          <div class="bonus__card">
+            <span class="bonus__icon" aria-hidden="true">🎂</span>
+            <h3 class="bonus__title">Двойные баллы в день рождения</h3>
+            <p class="bonus__text">В твой праздник все баллы начисляются в два раза.</p>
+          </div>
+          <div class="bonus__card">
+            <span class="bonus__icon" aria-hidden="true">🚀</span>
+            <h3 class="bonus__title">Подарок за 500 баллов</h3>
+            <p class="bonus__text">Достигни 500 баллов и получи фирменный слайм в подарок.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Контакты ===== -->
+    <section id="contacts" class="section contacts">
+      <div class="container">
+        <div class="section__head">
+          <p class="section__tag">Контакты</p>
+          <h2 class="section__title">Как нас найти</h2>
+        </div>
+        <div class="contacts__grid">
+          <div class="contacts__info">
+            <div class="contact-item">
+              <span class="contact-item__icon" aria-hidden="true">📍</span>
+              <div>
+                <h3 class="contact-item__title">Адрес</h3>
+                <p class="contact-item__text">г. Москва, ул. Антистрессовая, д. 7, ТЦ «Релакс», 2 этаж</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-item__icon" aria-hidden="true">🕐</span>
+              <div>
+                <h3 class="contact-item__title">Часы работы</h3>
+                <p class="contact-item__text">Пн–Пт: 10:00–20:00<br>Сб–Вс: 11:00–19:00</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-item__icon" aria-hidden="true">📞</span>
+              <div>
+                <h3 class="contact-item__title">Телефон</h3>
+                <p class="contact-item__text"><a href="tel:+79990001122">+7 (999) 000-11-22</a></p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-item__icon" aria-hidden="true">✉️</span>
+              <div>
+                <h3 class="contact-item__title">Почта</h3>
+                <p class="contact-item__text"><a href="mailto:hello@antistress.shop">hello@antistress.shop</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="contacts__map">
+            <div class="map-placeholder">
+              <span class="map-placeholder__icon" aria-hidden="true">🗺️</span>
+              <p class="map-placeholder__text">Мы здесь: ТЦ «Релакс», 2 этаж</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Футер ===== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__copy">© 2025 «Точка антистресса». Сделано с 💚 и капелькой глиттера.</p>
+      <div class="footer__socials">
+        <a href="#" class="footer__social" aria-label="Telegram">📱</a>
+        <a href="#" class="footer__social" aria-label="ВКонтакте">💬</a>
+        <a href="#" class="footer__social" aria-label="Instagram">📸</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Точка антистресса</title>
+    <style>
+        /* Сброс стандартных отступов */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Основные переменные цветов и шрифтов */
+        :root {
+            --primary-green: #2E7D32;
+            --primary-blue: #1565C0;
+            --accent-yellow: #FFC107;
+            --bg-light: #F5F7FA;
+            --text-dark: #2C3E50;
+            --text-light: #FFFFFF;
+            --border-radius: 12px;
+            --transition-speed: 0.3s;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        /* Плавная прокрутка для якорных ссылок */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Навигация */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-green);
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color var(--transition-speed);
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* Главный экран */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            color: var(--text-light);
+            padding: 120px 2rem 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 10;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-yellow);
+            color: var(--text-dark);
+            padding: 15px 40px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all var(--transition-speed);
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            background: #FFD54F;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Общие стили секций */
+        .section {
+            padding: 60px 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary-blue);
+            border-radius: 2px;
+        }
+
+        /* Слаймы */
+        .slimes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .slime-card {
+            background: var(--text-light);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slime-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-green), var(--primary-blue));
+        }
+
+        .slime-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary-blue);
+        }
+
+        .slime-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+        }
+
+        .slime-preview {
+            width: 100px;
+            height: 100px;
+            background: #A5D6A7;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            box-shadow: inset 0 5px 10px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .slime-preview::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 20px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 50%;
+        }
+
+        /* Акции */
+        .promo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .promo-card {
+            background: var(--text-light);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid var(--accent-yellow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promo-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent-yellow);
+            color: var(--text-dark);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Бонусная программа */
+        .loyalty-steps {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .loyalty-step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--text-light);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .loyalty-step h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-blue);
+        }
+
+        /* Контакты */
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+            margin-top: 2rem;
+        }
+
+        .map-placeholder {
+            background: #E0E0E0;
+            height: 300px;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .contact-info p {
+            margin-bottom: 1rem;
+        }
+
+        /* Футер */
+        .footer {
+            background: var(--text-dark);
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 60px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-menu {
+                display: none; /* На мобильных можно скрыть или заменить на бургер-меню */
+            }
+
+            .contacts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="nav-container">
+        <div class="logo">Точка антистресса</div>
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="#about">О нас</a></li>
+                <li><a href="#slimes">Слаймы</a></li>
+                <li><a href="#promo">Акции</a></li>
+                <li><a href="#loyalty">Бонусы</a></li>
+                <li><a href="#contacts">Контакты</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="hero">
+        <h1>Сними напряжение одним нажатием</h1>
+        <p>Фирменные слаймы «Точка антистресса» — идеальная текстура, яркие цвета и абсолютное расслабление. Создано для тех, кто ищет свой дзен.</p>
+        <a href="#slimes" class="cta-button">Выбрать свой слайм</a>
+    </section>
+
+    <section id="about" class="section">
+        <h2>О компании</h2>
+        <p style="text-align: center; max-width: 800px; margin-left: auto; margin-right: auto; font-size: 1.1rem;">
+            «Точка антистресса» родилась в 2023 году из простой идеи: антистресс должен быть не только эффективным, но и невероятно приятным на ощупь. 
+            Мы начинали с маленькой кухни, экспериментируя с безопасными составами, а сегодня наша лаборатория создает уникальные текстуры. 
+            Мы верим, что в мире цифрового шума каждому нужно место, где можно просто помять что-то приятное в руках.
+        </p>
+    </section>
+
+    <section id="slimes" class="section">
+        <h2>Наши слаймы</h2>
+        <div class="slimes-grid">
+            <div class="slime-card">
+                <div class="slime-preview" style="background: #A5D6A7;"></div>
+                <h3>«Космическое молоко»</h3>
+                <p>Воздушный, кремовый слайм с мелкими перламутровыми блестками. Идеален для медитативного растягивания.</p>
+            </div>
+            <div class="slime-card">
+                <div class="slime-preview" style="background: #4DB6AC;"></div>
+                <h3>«Арктический лед»</h3>
+                <p>Прозрачный, плотный слайм с эффектом хруста (crunch). Содержит вкрапления искусственного снега.</p>
+            </div>
+            <div class="slime-card">
+                <div class="slime-preview" style="background: #90A4AE;"></div>
+                <h3>«Городской туман»</h3>
+                <p>Серый баттер-слайм (butter). Невероятно мягкий, размазывается как масло. Ароматизирован запахом дождя.</p>
+            </div>
+            <div class="slime-card">
+                <div class="slime-preview" style="background: #FFB74D;"></div>
+                <h3>«Солнечный нектар»</h3>
+                <p>Глянцевый, кликающий слайм (jelly). Ярко-оранжевый, с добавлением золотых шариков.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="promo" class="section">
+        <h2>Акции</h2>
+        <div class="promo-grid">
+            <div class="promo-card">
+                <div class="promo-badge">Горячее</div>
+                <h3>Собери комбо</h3>
+                <p>При покупке любых трех слаймов — четвертый (самый дешевый) в подарок! Автоматически применится в корзине.</p>
+            </div>
+            <div class="promo-card">
+                <div class="promo-badge">Новинка</div>
+                <h3>Скидка на «Арктический лед»</h3>
+                <p>Только до конца месяца! Наш самый хрустящий слайм со скидкой 20%. Успейте поймать свежесть.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="loyalty" class="section">
+        <h2>Бонусная программа</h2>
+        <p style="text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
+            Получайте выгоду с каждой покупки! Наша программа лояльности проста и прозрачна.
+        </p>
+        <div class="loyalty-steps">
+            <div class="loyalty-step">
+                <h4>1. Регистрация</h4>
+                <p>Создайте личный кабинет на сайте или назовите номер телефона на кассе.</p>
+            </div>
+            <div class="loyalty-step">
+                <h4>2. Кэшбэк</h4>
+                <p>Получайте 5% от каждой покупки бонусами на свой счет. 1 бонус = 1 рубль.</p>
+            </div>
+            <div class="loyalty-step">
+                <h4>3. Траты</h4>
+                <p>Оплачивайте бонусами до 50% стоимости следующего заказа.</p>
+            </div>
+            <div class="loyalty-step">
+                <h4>4. День рождения</h4>
+                <p>Удвоенный кэшбэк (10%) в течение недели до и после вашего праздника.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacts" class="section">
+        <h2>Контакты</h2>
+        <div class="contacts-grid">
+            <div class="contact-info">
+                <h3>Свяжитесь с нами</h3>
+                <p><strong>Телефон:</strong> +7 (495) 123-45-67</p>
+                <p><strong>Email:</strong> hello@slime-point.ru</p>
+                <p><strong>Адрес:</strong> г. Москва, ул. Творческая, д. 10, коворкинг «Мозговая штурм»</p>
+                <h4 style="margin-top: 1.5rem;">Часы работы магазина:</h4>
+                <p>Пн–Пт: 10:00 – 21:00</p>
+                <p>Сб–Вс: 11:00 – 22:00</p>
+            </div>
+            <div class="map-placeholder">
+                [Интерактивная карта: как нас найти]
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <p>&copy; 2024 «Точка антистресса». Все права защищены. Сделано с любовью к тактильности.</p>
+</footer>
+
+</body>
+</html>
